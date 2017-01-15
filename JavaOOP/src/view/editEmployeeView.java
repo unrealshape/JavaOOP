@@ -1,15 +1,18 @@
 package view;
 
-import java.awt.BorderLayout;
-import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Observable;
 
+import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
 import Bean.Employee;
@@ -17,12 +20,6 @@ import Bean.EmployeeM;
 import Bean.Titel;
 import Bean.TitelM;
 import db.DatabaseManager;
-
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.JTextField;
 
 public class editEmployeeView extends Observable implements ActionListener {
 
@@ -36,7 +33,7 @@ public class editEmployeeView extends Observable implements ActionListener {
 	private JTextField txtBirthday;
 	private JTextField txtGross;
 	private JTextField txtNet;
-	private JComboBox cbxTitel;
+	private JComboBox<String> cbxTitel;
 	private JLabel lblId;
 	private JLabel lblTitel;
 	private JLabel lblSurname;
@@ -100,7 +97,7 @@ public class editEmployeeView extends Observable implements ActionListener {
 		lblNet.setBounds(27, 254, 61, 16);
 		contentPane.add(lblNet);
 		
-		btnAddEmployee = new JButton("Add Employee");
+		btnAddEmployee = new JButton("Save");
 		btnAddEmployee.setBounds(100, 287, 117, 29);
 		contentPane.add(btnAddEmployee);
 		
@@ -156,7 +153,7 @@ public class editEmployeeView extends Observable implements ActionListener {
 		contentPane.add(txtNet);
 		txtNet.setColumns(10);
 		
-		cbxTitel = new JComboBox();
+		cbxTitel = new JComboBox<String>();
 		cbxTitel.setBounds(205, 52, 130, 27);
 		contentPane.add(cbxTitel);
 		frame.setVisible(false);
@@ -299,8 +296,16 @@ public class editEmployeeView extends Observable implements ActionListener {
 	{
 		return btnCancel;
 	}
+	private void calculateNet()
+	{
+		int gros = Integer.parseInt(getGrossFromTextfield());
+		double net = gros * 0.61;
+		txtNet.setText(Double.toString(net));
+	}
 	public void addpressed()
 	{
+		//calculate net
+		calculateNet();
 		if(checkFields())
 		{
 			int id = Integer.parseInt(getIdFromTextfield());
@@ -315,12 +320,13 @@ public class editEmployeeView extends Observable implements ActionListener {
 			newemployee = new Employee(id, titel, surname, lastname, adress, postcode, birthday, gross, net);
 			try
 			{
-			employeeM.addEmployee(newemployee);
+			employeeM.editEmployee(newemployee);
 			super.setChanged();
 			super.notifyObservers();
             JOptionPane.showMessageDialog(null,
                     "Sie haben erfolgreich den Mitarbeiter editiert!",
                     "FehlerMeldung",JOptionPane.WARNING_MESSAGE);
+            frame.dispose();
 			
 			}
 			catch(Exception e1)
@@ -335,16 +341,22 @@ public class editEmployeeView extends Observable implements ActionListener {
                     "FehlerMeldung",JOptionPane.WARNING_MESSAGE);
 		}	
 	}
+	public void cancelpressed()
+	{
+		frame.dispose();
+	}
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
 		if(e.getSource() == getBtnAddEmployee())
 		{
 			// addpressed
+			addpressed();
 		}
 		else if(e.getSource() == getBtnCancel())
 		{
 			//cancel pressed
+			cancelpressed();
 		}
 		
 	}

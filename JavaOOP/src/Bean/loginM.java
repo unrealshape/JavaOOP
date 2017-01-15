@@ -33,14 +33,5 @@ public class loginM {
     	
     }
 
-	public void print()
-	{
-		for(int i=0;i<arrayListLogin.size();i++)
-		{
-			System.out.println("ID = " + arrayListLogin.get(i).getIdLogin()
-								+ " Username = " + arrayListLogin.get(i).getUsername()
-								+ " Password = " + arrayListLogin.get(i).getPassword()
-								+ " Email = " + arrayListLogin.get(i).getEmailadress());
-		}
-	}
+	
 }

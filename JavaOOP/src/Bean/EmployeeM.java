@@ -62,6 +62,7 @@ public class EmployeeM {
 	{
 		int id = employeeList.get(index).getId();
 		DatabaseManager.getInstance().deleteEmployee(id);
+		employeeList.remove(index);
 	}
 	public void addEmployee(Employee newEmployee) throws SQLException
 	{
@@ -70,6 +71,7 @@ public class EmployeeM {
 	}
 	public void editEmployee(Employee editEmployee) throws SQLException
 	{
+		DatabaseManager.getInstance().editEmployee(editEmployee);
 		
 	}
 

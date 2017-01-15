@@ -7,10 +7,14 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Observable;
 
+import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
-
 
 import Bean.Employee;
 import Bean.EmployeeM;
@@ -18,18 +22,12 @@ import Bean.Titel;
 import Bean.TitelM;
 import db.DatabaseManager;
 
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JButton;
-import javax.swing.JTextField;
-import javax.swing.JComboBox;
-
 public class addEmployeeView extends Observable implements ActionListener {
 
-	private JFrame frame;
+	private JFrame frmAddEmployee;
 	private JPanel contentPane;
 	private JTextField txtId;
-	private JComboBox cbxTitel;
+	private JComboBox<String> cbxTitel;
 	private JTextField txtSurname;
 	private JTextField txtLastname;
 	private JTextField txtAdress;
@@ -57,12 +55,13 @@ public class addEmployeeView extends Observable implements ActionListener {
 	
 	public addEmployeeView(EmployeeM employeeM) {
 		this.employeeM = employeeM;
-		frame = new JFrame();
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setBounds(100, 100, 427, 348);
+		frmAddEmployee = new JFrame();
+		frmAddEmployee.setTitle("Add Employee");
+		frmAddEmployee.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frmAddEmployee.setBounds(100, 100, 427, 348);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		frame.setContentPane(contentPane);
+		frmAddEmployee.setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
 		lblId = new JLabel("ID");
@@ -150,15 +149,12 @@ public class addEmployeeView extends Observable implements ActionListener {
 		contentPane.add(txtNet);
 		txtNet.setColumns(10);
 		
-		cbxTitel = new JComboBox();
+		cbxTitel = new JComboBox<String>();
 		cbxTitel.setBounds(205, 52, 130, 27);
 		contentPane.add(cbxTitel);
 		
-		frame.setVisible(false);
-		
-		//TEST
-		
-		txtNet.setText("12312");
+		frmAddEmployee.setVisible(false);
+	
 	}
 	
 	public void openWindow()
@@ -181,7 +177,7 @@ public class addEmployeeView extends Observable implements ActionListener {
 		fillComboBox();
 		txtId.setEnabled(false);
 		txtNet.setEnabled(false);
-		frame.setVisible(true);
+		frmAddEmployee.setVisible(true);
 	}
 	public void setzeAlleActionListener(ActionListener l)
 	{
@@ -290,7 +286,7 @@ public class addEmployeeView extends Observable implements ActionListener {
 		txtPostcode.setText("");
 		txtBirthday.setText("");
 		txtGross.setText("");
-		txtNet.setText("");
+		//txtNet.setText("");
 	}
 	public JButton getBtnAddEmployee()
 	{
@@ -300,9 +296,16 @@ public class addEmployeeView extends Observable implements ActionListener {
 	{
 		return btnCancel;
 	}
+	private void calculateNet()
+	{
+		int gros = Integer.parseInt(getGrossFromTextfield());
+		double net = gros * 0.61;
+		txtNet.setText(Double.toString(net));
+	}
 	public void addEmployeePressed()
 	{
-		//<
+		// Calculate NET
+		calculateNet();
 		if(checkFields())
 		{
 			int id = Integer.parseInt(getIdFromTextfield());
@@ -350,7 +353,7 @@ public class addEmployeeView extends Observable implements ActionListener {
 	}
 	public void CancelPressed()
 	{
-		
+		frmAddEmployee.dispose();
 	}
 	@Override
 	public void actionPerformed(ActionEvent e) {

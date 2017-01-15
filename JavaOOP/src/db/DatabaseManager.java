@@ -22,8 +22,6 @@ public class DatabaseManager {
     private static String query = "";
     private static DatabaseManager instance = null;
     private static Connection con = null;
-    private PreparedStatement pstmt = null;
-    
     public DatabaseManager()
     {
     	
@@ -132,7 +130,7 @@ public class DatabaseManager {
     	query ="DELETE FROM `neuedb`.`employees` WHERE ID = ?;";
     	PreparedStatement pstmt = con.prepareStatement(query);
     	pstmt.setInt(1, id);
-    	ResultSet rs = ausfuehren(pstmt);
+    	ausfuehren(pstmt);
     }
     public void addEmployee(Employee newEmployee) throws SQLException
     {
@@ -147,7 +145,7 @@ public class DatabaseManager {
     	pstmt.setString(7, newEmployee.getBirthday());
     	pstmt.setDouble(8, newEmployee.getGross());
     	pstmt.setDouble(9, newEmployee.getNet());
-    	ResultSet rs = ausfuehren(pstmt);
+    	ausfuehren(pstmt);
     }
     private int searchTitleID(String titleName) throws SQLException
     {
@@ -165,7 +163,19 @@ public class DatabaseManager {
     }
     public void editEmployee(Employee editedEmployee) throws SQLException
     {
-    	query ="UPDATE `neuedb`.`employees`SET`id` = <{id: }>,`surname` = <{surname: }>,`lastname` = <{lastname: }>,`adress` = <{adress: }>,`titel` = <{titel: }>,`postcode` = <{postcode: }>,`birthday` = <{birthday: }>,`gross` = <{gross: }>,`net` = <{net: }>WHERE `id` = <{expr}>;";
+    	query ="UPDATE `neuedb`.`employees`SET `surname` = ?,`lastname` = ?,`adress` = ?,`titel` = ?,`postcode` = ?,`birthday` = ?,`gross` = ?,`net` = ? WHERE `id` = ?;";
+    	PreparedStatement pstmt = con.prepareStatement(query);
+    	pstmt.setString(1, editedEmployee.getSurname());
+    	pstmt.setString(2, editedEmployee.getLastname());
+    	pstmt.setString(3, editedEmployee.getAdress());
+    	pstmt.setInt(4, searchTitleID(editedEmployee.getTitel()));
+    	//Postcode birthday gross net
+    	pstmt.setString(5, editedEmployee.getPostcode());
+    	pstmt.setString(6, editedEmployee.getBirthday());
+    	pstmt.setDouble(7, editedEmployee.getGross());
+    	pstmt.setDouble(8, editedEmployee.getNet());
+    	pstmt.setInt(9, editedEmployee.getId());
+    	ausfuehren(pstmt);
     }
 	
 

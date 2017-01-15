@@ -1,33 +1,24 @@
 package view;
 
-import java.awt.BorderLayout;
-import java.awt.Button;
-import java.awt.EventQueue;
-import java.awt.event.WindowEvent;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.sql.SQLException;
 import java.util.Observable;
 import java.util.Observer;
 
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableCellRenderer;
 
-import com.mysql.fabric.xmlrpc.base.Data;
-
 import Bean.EmployeeM;
 import Bean.EmployeeTableModel;
-import Bean.TitelM;
 import db.DatabaseManager;
-
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
-import javax.swing.Action;
-import javax.swing.JButton;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
 
 public class overview extends JFrame implements ActionListener,Observer {
 
@@ -44,11 +35,11 @@ public class overview extends JFrame implements ActionListener,Observer {
 	
 	private addEmployeeView addEmployeeView;
 	private editEmployeeView editEmployeeView;
-	private TitelM titelM = new TitelM();
 	private EmployeeM employeeM = new EmployeeM();
 	
 	public overview() {
 		super();
+		setTitle("Übersicht");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 524, 382);
 		contentPane = new JPanel();
@@ -130,6 +121,7 @@ public class overview extends JFrame implements ActionListener,Observer {
 	public void addEmployeePressed()
 	{
 		addEmployeeView = new addEmployeeView(employeeM);
+		addEmployeeView.addObserver(this);
 		addEmployeeView.openWindow();
 		
 	}
@@ -144,6 +136,7 @@ public class overview extends JFrame implements ActionListener,Observer {
 			return;
 		}
 		editEmployeeView = new editEmployeeView(employeeM,index);
+		editEmployeeView.addObserver(this);
 		editEmployeeView.openWindow();
 	}
 	private int getTableIndex()
@@ -174,7 +167,7 @@ public class overview extends JFrame implements ActionListener,Observer {
 							} catch (SQLException e) {
 								e.printStackTrace();
 							}
-							//update(null,null);
+							update(null,null);
 						}
 						else if(selected==1)
 						{
@@ -188,7 +181,6 @@ public class overview extends JFrame implements ActionListener,Observer {
 		// TODO Auto-generated method stub
 		if(e.getSource() == getBtnAdd())
 		{
-			System.out.println("overview.actionPerformed() -> AddEmployeePressed");
 			addEmployeePressed();
 		}
 		else if(e.getSource() == getBtnDelete())
@@ -198,7 +190,6 @@ public class overview extends JFrame implements ActionListener,Observer {
 		else if(e.getSource() == getBtnEdit())
 		{
 			editEmployeePressed();
-			System.out.println("overview.actionPerformed() -> EditEmployeePressed");
 		}
 		
 	}

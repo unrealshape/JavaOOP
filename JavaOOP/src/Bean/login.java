@@ -1,7 +1,5 @@
 package Bean;
 
-import java.util.ArrayList;
-
 public class login {
 	
 	// Attribute der Datenbank @ Tabelle login

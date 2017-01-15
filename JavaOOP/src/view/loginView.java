@@ -1,28 +1,28 @@
 package view;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
 
+import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JPasswordField;
+import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
 import Bean.login;
 import Bean.loginM;
 import db.DatabaseManager;
 
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JTextField;
-import javax.swing.JPasswordField;
-import javax.swing.JButton;
-
 public class loginView extends JFrame implements ActionListener {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JTextField txtTeo;
 	private JPasswordField passwordField;
@@ -83,7 +83,6 @@ public class loginView extends JFrame implements ActionListener {
 		{
 			System.err.println("Login User Daten runterladen Fehlgeshlagen " + e);
 		}
-		loginM.print();
 		setzeAlleActionListener(this);
 		this.setVisible(true);
 	}
@@ -104,6 +103,7 @@ public class loginView extends JFrame implements ActionListener {
 	public String getUsernameFromJTextfield() {
 		return txtTeo.getText();
 	}
+	@SuppressWarnings("deprecation")
 	public String getPasswordFromJTextfield() {
 		return passwordField.getText();
 	}
@@ -124,7 +124,6 @@ public class loginView extends JFrame implements ActionListener {
 		{
 				if(loginM.checkLogin2(userlogv))
 				{
-					System.out.println("Nächstes Fenster soll geöffnet werden, Login Erfolgreich");
 					overview = new overview();
 					overview.openWindow();
 				}
