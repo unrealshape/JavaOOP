@@ -106,7 +106,7 @@ public class overview extends JFrame implements ActionListener,Observer {
 		}
 		catch(SQLException e)
 		{
-			System.err.println("Login User Daten runterladen Fehlgeshlagen " + e);
+			System.err.println("Employeee Daten runterladen Fehlgeshlagen " + e);
 		}
 		setzeAlleActionListener(this);
 		this.setTableModel(employeeM.getEmployeeTableModel());
@@ -135,7 +135,16 @@ public class overview extends JFrame implements ActionListener,Observer {
 	}
 	public void editEmployeePressed()
 	{
-		editEmployeeView = new editEmployeeView();
+		int index = getTableIndex();
+		if (index == -1)
+		{
+            JOptionPane.showMessageDialog(null,
+                    "Sie haben keinen Mitarbeiter angewählt!",
+                    "FehlerMeldung",JOptionPane.WARNING_MESSAGE);
+			return;
+		}
+		editEmployeeView = new editEmployeeView(employeeM,index);
+		editEmployeeView.openWindow();
 	}
 	private int getTableIndex()
 	{
@@ -179,12 +188,17 @@ public class overview extends JFrame implements ActionListener,Observer {
 		// TODO Auto-generated method stub
 		if(e.getSource() == getBtnAdd())
 		{
-			System.out.println("asdasd");
+			System.out.println("overview.actionPerformed() -> AddEmployeePressed");
 			addEmployeePressed();
 		}
-		if(e.getSource() == getBtnDelete())
+		else if(e.getSource() == getBtnDelete())
 		{
 			deleteEmployeePressed();
+		}
+		else if(e.getSource() == getBtnEdit())
+		{
+			editEmployeePressed();
+			System.out.println("overview.actionPerformed() -> EditEmployeePressed");
 		}
 		
 	}

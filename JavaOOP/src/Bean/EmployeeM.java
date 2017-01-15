@@ -21,6 +21,10 @@ public class EmployeeM {
 	{
 		return new EmployeeTableModel(employeeList);
 	}
+	public int getEmployeeID(int index)
+	{
+		return employeeList.get(index).getId();
+	}
 	public String getEmployeeSurname(int index)
 	{
 		return employeeList.get(index).getSurname();
@@ -28,6 +32,30 @@ public class EmployeeM {
 	public String getEmployeeLastName(int index)
 	{
 		return employeeList.get(index).getLastname();
+	}
+	public String getEmployeeAdress(int index)
+	{
+		return employeeList.get(index).getAdress();
+	}
+	public String getEmployeeTitel(int index)
+	{
+		return employeeList.get(index).getTitel();
+	}
+	public String getEmployeePostCode(int index)
+	{
+		return employeeList.get(index).getPostcode();
+	}
+	public String getEmployeeBirthday(int index)
+	{
+		return employeeList.get(index).getBirthday();
+	}
+	public Double getEmployeeGross(int index)
+	{
+		return employeeList.get(index).getGross();
+	}
+	public Double getEmployeeNet(int index)
+	{
+		return employeeList.get(index).getNet();
 	}
 	
 	public void deleteEmployee(int index)throws SQLException
@@ -40,5 +68,10 @@ public class EmployeeM {
 		DatabaseManager.getInstance().addEmployee(newEmployee);
 		employeeList.add(newEmployee);
 	}
+	public void editEmployee(Employee editEmployee) throws SQLException
+	{
+		
+	}
+
 
 }

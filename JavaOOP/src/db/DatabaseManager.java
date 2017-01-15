@@ -76,13 +76,12 @@ public class DatabaseManager {
     public ArrayList<Employee> getAllEmployees() throws SQLException
     {
     	ArrayList<Employee> arrayListEmployee = new ArrayList<>();
-    	query = "SELECT * FROM neuedb.employees";
+    	query = "SELECT `id`,`titel`,`surname`,`lastname`,`adress`,`postcode`,`birthday`,`gross`,`net` FROM neuedb.employees";
     	ResultSet rs = ausfuehren(query);
     	while(rs.next())
     	{
     		int id = rs.getInt(1);
-    		int titelid = rs.getInt(2);
-    		String titel = getTitleName(titelid);
+    		String titel = getTitleName(rs.getInt(2));
     		String surname = rs.getString(3);
     		String lastname = rs.getString(4);
     		String adress = rs.getString(5);
@@ -137,16 +136,13 @@ public class DatabaseManager {
     }
     public void addEmployee(Employee newEmployee) throws SQLException
     {
-    	query ="INSERT INTO `neuedb`.`employees` (`id`,`titel`,`surname`,`lastname`,`adress`,`postcode`,`birthday`,`gross`,`net`) VALUES (?,?,?,?,?,?,?,?,?)";
-    	System.out.println("titel von obj " + newEmployee.getTitel());
-    	int titelID = searchTitleID(newEmployee.getTitel());
-    	System.out.println("titel id gesucht" + titelID);
+    	query ="INSERT INTO `neuedb`.`employees`(`id`,`surname`,`lastname`,`adress`,`titel`,`postcode`,`birthday`,`gross`,`net`) VALUES (?,?,?,?,?,?,?,?,?)";
     	PreparedStatement pstmt = con.prepareStatement(query);
     	pstmt.setInt(1, newEmployee.getId());
-    	pstmt.setInt(2, titelID);
-    	pstmt.setString(3, newEmployee.getSurname());
-    	pstmt.setString(4, newEmployee.getLastname());
-    	pstmt.setString(5, newEmployee.getAdress());
+    	pstmt.setString(2, newEmployee.getSurname());
+    	pstmt.setString(3, newEmployee.getLastname());
+    	pstmt.setString(4, newEmployee.getAdress());
+    	pstmt.setInt(5, searchTitleID(newEmployee.getTitel()));
     	pstmt.setString(6, newEmployee.getPostcode());
     	pstmt.setString(7, newEmployee.getBirthday());
     	pstmt.setDouble(8, newEmployee.getGross());
@@ -156,7 +152,7 @@ public class DatabaseManager {
     private int searchTitleID(String titleName) throws SQLException
     {
 		int titleID = 0;
-		query = "Select * From neuedb.titles WHERE titles LIKE ?";
+		query = "Select id From neuedb.titles WHERE titles LIKE ?";
 		PreparedStatement pstmt = con.prepareStatement(query);
 		pstmt.setString(1, titleName);
 		ResultSet rs = ausfuehren(pstmt); 
@@ -166,6 +162,10 @@ public class DatabaseManager {
 			titleID = rs.getInt(1);
 		}
 		return titleID;
+    }
+    public void editEmployee(Employee editedEmployee) throws SQLException
+    {
+    	query ="UPDATE `neuedb`.`employees`SET`id` = <{id: }>,`surname` = <{surname: }>,`lastname` = <{lastname: }>,`adress` = <{adress: }>,`titel` = <{titel: }>,`postcode` = <{postcode: }>,`birthday` = <{birthday: }>,`gross` = <{gross: }>,`net` = <{net: }>WHERE `id` = <{expr}>;";
     }
 	
 

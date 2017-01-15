@@ -16,6 +16,7 @@ import Bean.loginM;
 import db.DatabaseManager;
 
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.JPasswordField;
 import javax.swing.JButton;
@@ -42,7 +43,6 @@ public class loginView extends JFrame implements ActionListener {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-		
 		lblUsername = new JLabel("Username :");
 		lblUsername.setBounds(50, 50, 78, 16);
 		contentPane.add(lblUsername);
@@ -116,31 +116,23 @@ public class loginView extends JFrame implements ActionListener {
 		
 		if(username.equals("") || password.equals(""))
 		{
-			/*lblfail.setText("Please enter your username and password");
-			lblfail.setForeground(Color.RED);
-			lblfail.setVisible(true);*/
-			System.err.println("ERROR FALSCHES PASSWORD ODER USERNAME!");
+			 JOptionPane.showMessageDialog(null,"Login Fehlgeschlagen! Kein Username oder Passwort festgestellt.",
+	                    "FehlerMeldung",JOptionPane.WARNING_MESSAGE);
+			System.err.println("Kein Username / Passwort ; beides leere Inhalte!");
 		}
 		else
 		{
 				if(loginM.checkLogin2(userlogv))
 				{
-					/*lblfail.setText("Login Success");
-					lblfail.setForeground(Color.GREEN);
-					lblfail.setVisible(true);*/
-					System.out.println("Nächstes Fenster soll geöffnet werden");
+					System.out.println("Nächstes Fenster soll geöffnet werden, Login Erfolgreich");
 					overview = new overview();
 					overview.openWindow();
-					/*moviev movieWindow = new moviev();
-					movieWindow.createWindow();*/
 				}
 				else
 				{
-					/*lblfail.setText("<html>invalid username/password <p/> "+                  
-			                   "please try again</html>");
-					lblfail.setForeground(Color.RED);
-					lblfail.setVisible(true);*/
-					System.err.println("fehlgeschlagen");
+					 JOptionPane.showMessageDialog(null,"Login Fehlgeschlagen! Username oder Passwort Falsch.",
+			                    "FehlerMeldung",JOptionPane.WARNING_MESSAGE);
+					System.err.println("Incorrect Username/PASSWORD");
 				}
 		}
 	}
@@ -150,12 +142,10 @@ public class loginView extends JFrame implements ActionListener {
 		if(e.getSource() == getButtonLogin())
 		{
 			loginpressed();
-			System.out.println("LOGIN BUTTON WURDE GEDRUECKT");
 		}
 		else if(e.getSource() == getButtonCancel())
 		{
 			System.exit(0);
-			System.out.println("Cancel BUTTON WURDE GEDRUECKT");
 		}
 		
 		
