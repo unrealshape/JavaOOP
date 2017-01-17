@@ -268,10 +268,10 @@ public class addEmployeeView extends Observable implements ActionListener {
 		{
 			return false;
 		}
-		else if(getNetFromTextfield().isEmpty())
+		/*else if(getNetFromTextfield().isEmpty())
 		{
 			return false;
-		}
+		}*/
 		else
 		{
 			return true;
@@ -323,9 +323,9 @@ public class addEmployeeView extends Observable implements ActionListener {
 			employeeM.addEmployee(newemployee);
 			super.setChanged();
 			super.notifyObservers();
-			Object[] options = {"Ja","Nein"};
-			        int selected = JOptionPane.showOptionDialog(null, "Erfolgreich Employee Eingefügt, nochein Employee einfügen?",
-			        		"FilmEinfügen Erfolgreich",JOptionPane.DEFAULT_OPTION,JOptionPane.INFORMATION_MESSAGE, 
+			Object[] options = {"Yes","No"};
+			        int selected = JOptionPane.showOptionDialog(null, "Employee was successfully added, do you want to add one employee more?",
+			        		"Adding employee was succesfull",JOptionPane.DEFAULT_OPTION,JOptionPane.INFORMATION_MESSAGE, 
 			    null, options, options[0]);
 			if(selected==0)
 			{
@@ -346,8 +346,8 @@ public class addEmployeeView extends Observable implements ActionListener {
 		else
 		{
             JOptionPane.showMessageDialog(null,
-                    "Sie müssen alle Textfelder ausfüllen",
-                    "FehlerMeldung",JOptionPane.WARNING_MESSAGE);
+                    "You have to fill in all textfields",
+                    "Failure Notification",JOptionPane.WARNING_MESSAGE);
 		}
 		//>
 	}

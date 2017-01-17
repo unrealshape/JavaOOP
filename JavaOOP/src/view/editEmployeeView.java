@@ -324,8 +324,8 @@ public class editEmployeeView extends Observable implements ActionListener {
 			super.setChanged();
 			super.notifyObservers();
             JOptionPane.showMessageDialog(null,
-                    "Sie haben erfolgreich den Mitarbeiter editiert!",
-                    "FehlerMeldung",JOptionPane.WARNING_MESSAGE);
+                    "The employee was successfully added!",
+                    "Failure Notification",JOptionPane.WARNING_MESSAGE);
             frame.dispose();
 			
 			}
@@ -337,8 +337,8 @@ public class editEmployeeView extends Observable implements ActionListener {
 		else
 		{
             JOptionPane.showMessageDialog(null,
-                    "Sie müssen alle Textfelder ausfüllen",
-                    "FehlerMeldung",JOptionPane.WARNING_MESSAGE);
+                    "You have to fill in all textfields",
+                    "Failure Notification",JOptionPane.WARNING_MESSAGE);
 		}	
 	}
 	public void cancelpressed()

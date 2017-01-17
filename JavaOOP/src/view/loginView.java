@@ -38,7 +38,7 @@ public class loginView extends JFrame implements ActionListener,Observer {
 	private overview overview;
 	
 	public loginView() {
-		setTitle("Login @ Personal Verwaltung");
+		setTitle("Login @ Employee Management");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
@@ -118,8 +118,8 @@ public class loginView extends JFrame implements ActionListener,Observer {
 		
 		if(username.equals("") || password.equals(""))
 		{
-			 JOptionPane.showMessageDialog(null,"Login Fehlgeschlagen! Kein Username oder Passwort festgestellt.",
-	                    "FehlerMeldung",JOptionPane.WARNING_MESSAGE);
+			 JOptionPane.showMessageDialog(null,"Login failed ! Username or password is not correct.",
+	                    "Failure Notification",JOptionPane.WARNING_MESSAGE);
 			System.err.println("Kein Username / Passwort ; beides leere Inhalte!");
 		}
 		else
@@ -133,8 +133,8 @@ public class loginView extends JFrame implements ActionListener,Observer {
 				}
 				else
 				{
-					 JOptionPane.showMessageDialog(null,"Login Fehlgeschlagen! Username oder Passwort Falsch.",
-			                    "FehlerMeldung",JOptionPane.WARNING_MESSAGE);
+					 JOptionPane.showMessageDialog(null,"Login failed ! Username or password is not correct.",
+			                    "Failure Notification",JOptionPane.WARNING_MESSAGE);
 					System.err.println("Incorrect Username/PASSWORD");
 				}
 		}

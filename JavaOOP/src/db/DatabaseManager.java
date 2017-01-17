@@ -16,8 +16,8 @@ public class DatabaseManager {
     private final static String dbserver = "localhost";
     private final static int dbport = 3306;
     private final static String dbname = "neuedb";
-    private final static String dbuser = "root";
-    private final static String dbpass ="hallo123";
+    private final static String dbuser = "erhan";
+    private final static String dbpass ="erhan";
     private final static String url = "jdbc:mysql://" + dbserver + ":" + dbport + "/" + dbname + "?useSSL=false";
     private static String query = "";
     private static DatabaseManager instance = null;

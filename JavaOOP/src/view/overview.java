@@ -44,7 +44,7 @@ public class overview extends Observable implements ActionListener,Observer {
 	public overview() {
 		super();
 		frame = new JFrame();
-		frame.setTitle("Übersicht");
+		frame.setTitle("Overview");
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frame.setBounds(100, 100, 709, 382);
 		contentPane = new JPanel();
@@ -141,8 +141,8 @@ public class overview extends Observable implements ActionListener,Observer {
 		if (index == -1)
 		{
             JOptionPane.showMessageDialog(null,
-                    "Sie haben keinen Mitarbeiter angewählt!",
-                    "FehlerMeldung",JOptionPane.WARNING_MESSAGE);
+                    "You have to choose an employee!",
+                    "Failure Notification",JOptionPane.WARNING_MESSAGE);
 			return;
 		}
 		editEmployeeView = new editEmployeeView(employeeM,index);
@@ -160,15 +160,15 @@ public class overview extends Observable implements ActionListener,Observer {
 			if (index == -1)
 			{
 	            JOptionPane.showMessageDialog(null,
-	                    "Sie haben keinen Mitarbeiter angewählt!",
-	                    "FehlerMeldung",JOptionPane.WARNING_MESSAGE);
+	                    "You have to choose a employee!",
+	                    "Failure Notification",JOptionPane.WARNING_MESSAGE);
 				return;
 			}
 					String surname = employeeM.getEmployeeSurname(index);
 					String lastname = employeeM.getEmployeeLastName(index);
-					Object[] options = {"Ja","Nein"};
-					int selected = JOptionPane.showOptionDialog(null, "Möchten Sie wirklich den Mitarbeiter '" + surname +" , "+ lastname +"' löschen?",
-	        		"Sicher?",JOptionPane.DEFAULT_OPTION,JOptionPane.INFORMATION_MESSAGE, 
+					Object[] options = {"Yes","No"};
+					int selected = JOptionPane.showOptionDialog(null, "Do you want to delete the employee '" + surname +" , "+ lastname+"?",
+	        		"Are you sure?",JOptionPane.DEFAULT_OPTION,JOptionPane.INFORMATION_MESSAGE, 
 	        			null, options, options[0]);
 						if(selected==0)
 						{
