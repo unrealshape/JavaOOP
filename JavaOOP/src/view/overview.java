@@ -46,14 +46,14 @@ public class overview extends Observable implements ActionListener,Observer {
 		frame = new JFrame();
 		frame.setTitle("Übersicht");
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		frame.setBounds(100, 100, 524, 382);
+		frame.setBounds(100, 100, 709, 382);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		frame.setContentPane(contentPane);
 		contentPane.setLayout(null);
 		table = new JTable();
 		JScrollPane scrollPane = new JScrollPane(table);
-		scrollPane.setBounds(6, 6, 512, 240);
+		scrollPane.setBounds(6, 6, 697, 240);
 		contentPane.add(scrollPane);
 		
 		btnAddEmployee = new JButton("Add Employee");
