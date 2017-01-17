@@ -57,7 +57,7 @@ public class addEmployeeView extends Observable implements ActionListener {
 		this.employeeM = employeeM;
 		frmAddEmployee = new JFrame();
 		frmAddEmployee.setTitle("Add Employee");
-		frmAddEmployee.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frmAddEmployee.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frmAddEmployee.setBounds(100, 100, 427, 348);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -304,10 +304,10 @@ public class addEmployeeView extends Observable implements ActionListener {
 	}
 	public void addEmployeePressed()
 	{
-		// Calculate NET
-		calculateNet();
 		if(checkFields())
 		{
+			// Calculate NET
+			calculateNet();
 			int id = Integer.parseInt(getIdFromTextfield());
 			String titel = getTitleFromCbx();
 			String surname = getSurnameFromTextfield();
@@ -364,7 +364,7 @@ public class addEmployeeView extends Observable implements ActionListener {
 		}
 		else if(e.getSource() == getBtnCancel())
 		{
-			
+			CancelPressed();
 		}
 		
 	}

@@ -19,18 +19,22 @@ import javax.swing.table.DefaultTableCellRenderer;
 import Bean.EmployeeM;
 import Bean.EmployeeTableModel;
 import db.DatabaseManager;
+import java.awt.Window.Type;
 
-public class overview extends JFrame implements ActionListener,Observer {
+public class overview extends Observable implements ActionListener,Observer {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	private JFrame frame;
 	private JPanel contentPane;
 	private JTable table;
 	private JButton btnEditEmployee;
 	private JButton btnDeleteEmployee;
 	private JButton btnAddEmployee;
+	private JButton btnClose;
+	
 	
 	
 	private addEmployeeView addEmployeeView;
@@ -39,12 +43,13 @@ public class overview extends JFrame implements ActionListener,Observer {
 	
 	public overview() {
 		super();
-		setTitle("Übersicht");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 524, 382);
+		frame = new JFrame();
+		frame.setTitle("Übersicht");
+		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		frame.setBounds(100, 100, 524, 382);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		setContentPane(contentPane);
+		frame.setContentPane(contentPane);
 		contentPane.setLayout(null);
 		table = new JTable();
 		JScrollPane scrollPane = new JScrollPane(table);
@@ -62,6 +67,10 @@ public class overview extends JFrame implements ActionListener,Observer {
 		btnDeleteEmployee = new JButton("Delete Employee");
 		btnDeleteEmployee.setBounds(261, 256, 128, 29);
 		contentPane.add(btnDeleteEmployee);
+		
+		btnClose = new JButton("Close");
+		btnClose.setBounds(387, 256, 117, 29);
+		contentPane.add(btnClose);
 	}
 	
 	public void setzeAlleActionListener(ActionListener l)
@@ -69,6 +78,7 @@ public class overview extends JFrame implements ActionListener,Observer {
 		btnAddEmployee.addActionListener(l);
 		btnEditEmployee.addActionListener(l);
 		btnDeleteEmployee.addActionListener(l);
+		btnClose.addActionListener(l);
 	}
 	
 	public void setTableModel(EmployeeTableModel employeTM) {
@@ -102,7 +112,7 @@ public class overview extends JFrame implements ActionListener,Observer {
 		setzeAlleActionListener(this);
 		this.setTableModel(employeeM.getEmployeeTableModel());
 		
-		this.setVisible(true);
+		frame.setVisible(true);
 	}
 	
 	public JButton getBtnAdd()
@@ -175,6 +185,18 @@ public class overview extends JFrame implements ActionListener,Observer {
 						}
 		}	
 	}
+	
+	public void closedPressed()
+	{
+		super.setChanged();
+		super.notifyObservers();
+		frame.dispose();
+	}
+	
+	public JButton getBtnClose()
+	{
+		return btnClose;
+	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
@@ -190,6 +212,10 @@ public class overview extends JFrame implements ActionListener,Observer {
 		else if(e.getSource() == getBtnEdit())
 		{
 			editEmployeePressed();
+		}
+		else if(e.getSource() == getBtnClose())
+		{
+			closedPressed();
 		}
 		
 	}

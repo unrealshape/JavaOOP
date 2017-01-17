@@ -3,6 +3,8 @@ package view;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
+import java.util.Observable;
+import java.util.Observer;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -17,7 +19,7 @@ import Bean.login;
 import Bean.loginM;
 import db.DatabaseManager;
 
-public class loginView extends JFrame implements ActionListener {
+public class loginView extends JFrame implements ActionListener,Observer {
 
 	/**
 	 * 
@@ -125,7 +127,9 @@ public class loginView extends JFrame implements ActionListener {
 				if(loginM.checkLogin2(userlogv))
 				{
 					overview = new overview();
+					overview.addObserver(this);
 					overview.openWindow();
+					this.dispose();
 				}
 				else
 				{
@@ -147,6 +151,12 @@ public class loginView extends JFrame implements ActionListener {
 			System.exit(0);
 		}
 		
+		
+	}
+	@Override
+	public void update(Observable o, Object arg) {
+		// TODO Auto-generated method stub
+		this.setVisible(true);
 		
 	}
 }

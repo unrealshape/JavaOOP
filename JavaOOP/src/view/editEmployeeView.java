@@ -54,7 +54,7 @@ public class editEmployeeView extends Observable implements ActionListener {
 		this.employeeM = employeeM;
 		this.index = index;
 		frame = new JFrame("Edit Employee");
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frame.setBounds(100, 100, 427, 348);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -304,10 +304,10 @@ public class editEmployeeView extends Observable implements ActionListener {
 	}
 	public void addpressed()
 	{
-		//calculate net
-		calculateNet();
 		if(checkFields())
 		{
+			//calculate net
+			calculateNet();
 			int id = Integer.parseInt(getIdFromTextfield());
 			String titel = getTitleFromCbx();
 			String surname = getSurnameFromTextfield();
